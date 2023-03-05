@@ -545,7 +545,7 @@ void tty_flip_buffer_push(struct tty_port *port)
 	struct tty_bufhead *buf = &port->buf;
 
 	tty_flip_buffer_commit(buf->tail);
-	queue_work(system_unbound_wq, &buf->work);
+	queue_kthread_work(&port->worker, &buf->work);
 }
 EXPORT_SYMBOL(tty_flip_buffer_push);
 
